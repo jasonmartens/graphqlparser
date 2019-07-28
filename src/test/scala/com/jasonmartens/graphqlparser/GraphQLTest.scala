@@ -1,11 +1,14 @@
 package com.jasonmartens.graphqlparser
 
+import org.scalatest.Matchers
+
 import scala.io.Source
 
-class GraphQLTest extends org.scalatest.FunSuite {
+class GraphQLTest extends org.scalatest.FunSuite with Matchers {
   test("Parsing GraphQL should succeed") {
     val jsonString = Source.fromResource("github-schema-july-26-2019.json").mkString
-    IntrospectionParser.parse(jsonString)
+    val result = IntrospectionParser.parse(jsonString)
+    result.isRight shouldBe true
   }
 
 }
