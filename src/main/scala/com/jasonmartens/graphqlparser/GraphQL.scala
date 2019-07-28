@@ -1,6 +1,6 @@
 package com.jasonmartens.graphqlparser
 
-import scalaz.NonEmptyList
+import cats.data.NonEmptyList
 
 object GraphQL {
   case class Schema (
