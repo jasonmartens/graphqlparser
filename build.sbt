@@ -14,8 +14,10 @@ scalaVersion := "2.12.8"
 
 libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-core" % "7.2.28",
-  "io.argonaut" %% "argonaut" % "6.2.3",
-  "io.argonaut" %% "argonaut-scalaz" % "6.2.3"
+//  "io.argonaut" %% "argonaut" % "6.2.3",
+//  "io.argonaut" %% "argonaut-scalaz" % "6.2.3",
+  "org.json4s" %% "json4s-core" % "3.6.7",
+  "org.json4s" %% "json4s-native" % "3.6.7",
 )
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.8"
