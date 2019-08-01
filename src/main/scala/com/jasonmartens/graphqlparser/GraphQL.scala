@@ -5,11 +5,17 @@ import cats.data.NonEmptyList
 object GraphQL {
   case class Schema (
     types: NonEmptyList[Type],
-    queryType: Type,
-    mutationType: Type,
-    subscriptionType: Type,
+    queryType: QueryType,
+    mutationType: Option[MutationType],
+    subscriptionType: Option[SubscriptionType],
     directives: NonEmptyList[Directive]
   )
+
+  // TODO: Github's API just returns a "name":"Query" (and similar) values here, which seems to contradict the spec:
+  // https://graphql.github.io/graphql-spec/June2018/#sec-Schema-Introspection
+  case class QueryType(name: String)
+  case class MutationType(name: String)
+  case class SubscriptionType(name: String)
 
   sealed trait Type {
     val name: Option[String]

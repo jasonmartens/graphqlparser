@@ -1,17 +1,25 @@
 package com.jasonmartens.graphqlparser
 
 import cats.data.NonEmptyList
-import com.jasonmartens.graphqlparser.GraphQL.{Directive, DirectiveLocation, InputValue}
+import com.jasonmartens.graphqlparser.GraphQL.{Directive, DirectiveLocation, InputValue, TypeKinds}
 import org.scalatest.Matchers
 
 import scala.io.Source
 
 class GraphQLTest extends org.scalatest.FunSuite with Matchers {
-//  test("Parsing GraphQL should succeed") {
-//    val jsonString = Source.fromResource("github-schema-july-26-2019.json").mkString
-//    val result = IntrospectionParser.parseIntrospection(jsonString)
-//    result.length shouldBe 1
-//  }
+  test("Parsing GraphQL should succeed") {
+    val jsonString = Source.fromResource("github-schema-july-26-2019.json").mkString
+    val result = IntrospectionParser.parseIntrospection(jsonString)
+    result match {
+      case Left(err) =>
+        println(err)
+        fail()
+      case Right(schema) =>
+        schema.head.types.find(_.name.contains("Query")).map( gqlType =>
+          gqlType.kind shouldBe TypeKinds.Object
+        )
+    }
+  }
   test("Parsing a directive should succeed") {
     val directiveJson = """
         |{
